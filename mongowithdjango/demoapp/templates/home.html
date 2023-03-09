@@ -1,0 +1,222 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'dync_home.css' %}">
+    <link rel="shortcut icon" href="{% static 'HappyHomeLogo.png' %}" type="image/x-icon">
+    <title>Home</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: rgb(3, 1, 32);
+            display: flex;
+            flex-direction: column;
+        }
+
+        #headlogo{
+            filter:invert(100%);
+            padding: 10px 50px 0px 50px;
+        }
+
+        section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Total expendatiture circle design */
+        .expenditure_card {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            border-radius: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 10px;
+            cursor: pointer;
+        }
+
+        .expenditure_card_circle {
+            --clr:#f40103;
+            border-radius: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            font-family: 'Comfortaa', cursive;
+        }
+
+        .expenditure_card .expenditure_card_circle::before{
+            content: '';
+            top: 0;
+            left: 0;
+            width: 340px;
+            height: 340px;
+            background: var(--clr);
+            position: absolute;
+            border-radius: 50%;
+            border: 6px solid var(--clr);
+            filter: drop-shadow(0 0 50px var(--clr)) drop-shadow(0 0 150px var(--clr));
+        }
+
+        .expenditure_card_style {
+            position: absolute;
+            color: white;
+        }
+        
+        .gapDiv {
+            width: 300px;
+        }
+
+        /* Add data design */
+        .addData {
+            border-radius: 15px;
+            position: relative;
+            top: 10px;
+            width: 300px;
+            height: 520px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: aliceblue;
+            background: rgb(1, 2, 26);
+            overflow: hidden;
+        }
+
+        .addData::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 600px;
+            background: linear-gradient(rgb(61, 61, 249), rgb(246, 4, 44));
+            animation: rotation 4s linear infinite;
+        }
+
+        .addData h1 {
+            position: relative;
+            color: white;
+            z-index: 10;
+            font-family: 'Lexend Exa', sans-serif;
+            top: -50px;
+        }
+
+        .addData form {
+            position: relative;
+            color: white;
+            font-family: 'Comfortaa', cursive;
+            font-weight: bold;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .addData form input , .addData form select {
+            outline: none;
+            border: none;
+            border-bottom: white solid 2px;
+            background: rgb(3, 1, 32);
+            color: white;
+            height: 30px;
+            width: 250px;
+            font-family: 'Comfortaa', cursive;
+            padding: 7px;
+            font-size: 15px;
+        }
+
+        .addData button {
+            position: relative;
+            color: white;
+            z-index: 10;
+            margin-top: 30px;
+            width: 105px;
+            padding: 5px;
+            color: rgb(3, 1, 32);
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .addData::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            background: rgb(3, 1, 32);
+            border-radius: 15px;
+        }
+
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #viewHistroy {
+            top: 5s0px;
+        }
+
+        #historylink {
+            text-decoration: none;
+            color: rgb(3, 1, 32);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="headlogo">
+        <img src="{% static 'HappyHomeLogo.png' %}" alt="HappyHomeLogo" height="60px" width="90px">
+    </div>
+    <section>
+        <!-- Total expenditure cirlce html -->
+        <div class="expenditure_card">
+            <div class="expenditure_card_circle">
+                <h3 class="expenditure_card_style">Your Total Expenditure is -<br>&#8377; {{count}}</h3>
+            </div>
+        </div>
+
+        <!-- Gap between Total expenditure cirlce and Add your data card -->
+        <div class="gapDiv"></div>
+        
+        <!-- Add data html section -->
+        <div class='addData'>
+            <h1>Add your note</h1>
+            <form action="submit/" method="POST">{% csrf_token %}
+                Reasion : <select name="title" id="title">
+                    <option value="other">Other</option>
+                    <option value="food">Food</option>
+                    <option value="travel">Travel</option>
+                    <option value="bill">Bills</option>
+                    <option value="donation">Donation</option>
+                    <option value="grocery">Grocery</option>
+                </select>
+                Desc : <input type="text" name="desc"><br>
+                Date : <input type="date" name="date" id="date"><br>
+                Price : <input type="number" name="price" id="price"><br>
+                <button type="submit">Submit</button>
+            </form>
+            <button id="viewHistroy"><a href="{% url 'histry' %}" id="historylink">View Histry</a></button>
+        </div>
+    </section>
+    <!-- <button><a href="{% url 'sub' %}">Next</a></button> -->
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+@media screen and (max-width: 600px)  {
+    section{
+        display: flex;
+        flex-direction: column;
+    }
+    .expenditure_card{
+        margin: 15%;
+    }
+    .addData{
+        margin: 100px;
+    }
+    .addData {
+        width: 250px;
+        height: 500px;
+    }
+  }

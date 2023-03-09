@@ -1,0 +1,32 @@
+@media screen and (max-width: 600px)  {
+    #head{
+        display: flex;
+        flex-direction: column;
+    }
+    #head #heading h2{
+        margin-left: -240px;
+        font-size: 11px;
+    }
+    #goback{
+        margin-left: -250px;
+    }
+
+    #history_list{
+        justify-content:left;
+        align-items:start;
+    }
+    .list_entity{
+        margin:-100px;
+        display: flex;
+    }
+    .list_entity h4{
+        width:10px;
+        margin-left: -500px;
+        width: 10px;
+    }
+    .list_entity p{
+        width:10px ;
+    }
+    .list_entity img{
+    }
+  }
